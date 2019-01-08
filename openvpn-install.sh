@@ -200,7 +200,7 @@ else
 	esac
 	echo
 	echo "What port do you want OpenVPN listening to?"
-	read -p "Port: " -e -i 1194 PORT
+	read -p "Port: " -e -i 443 PORT
 	echo
 	echo "Which DNS do you want to use with the VPN?"
 	echo "   1) Current system resolvers"
@@ -217,8 +217,26 @@ else
 	echo "Okay, that was all I needed. We are ready to set up your OpenVPN server now."
 	read -n1 -r -p "Press any key to continue..."
 	if [[ "$OS" = 'debian' ]]; then
-		apt-get update
-		apt-get install openvpn iptables openssl ca-certificates -y
+		apt update
+		apt upgrade -y
+		apt install apt-src fakeroot curl git software-properties-common autoconf build-essential checkinstall libtool liblzo2-dev libpam0g-dev libssl-dev iptables openssl ca-certificates -y
+		echo "deb-src http://mirrors.digitalocean.com/ubuntu/ cosmic main restricted" >> /etc/apt/sources.list
+		apt update
+		apt-src install openvpn
+		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/02-tunnelblick-openvpn_xorpatch-a.diff > a.patch
+		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/03-tunnelblick-openvpn_xorpatch-b.diff > b.patch
+		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/04-tunnelblick-openvpn_xorpatch-c.diff > c.patch
+		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/05-tunnelblick-openvpn_xorpatch-d.diff > d.patch
+		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/06-tunnelblick-openvpn_xorpatch-e.diff > e.patch
+		cd ~/openvpn-2.4.6/
+		patch -p1 < ../a.patch
+		patch -p1 < ../b.patch
+		patch -p1 < ../c.patch
+		patch -p1 < ../d.patch
+		patch -p1 < ../e.patch
+		cd ~
+		apt-src build openvpn
+		dpkg -i openvpn*.deb
 	else
 		# Else, the distro is CentOS
 		yum install epel-release -y
@@ -257,6 +275,7 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 	# Generate server.conf
 	echo "port $PORT
 proto $PROTOCOL
+scramble xormask
 dev tun
 sndbuf 0
 rcvbuf 0
@@ -303,14 +322,16 @@ ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
 		;;
 	esac
 	echo "keepalive 10 120
-cipher AES-256-CBC
+cipher none
 user nobody
 group $GROUPNAME
 persist-key
 persist-tun
 status openvpn-status.log
 verb 3
-crl-verify crl.pem" >> /etc/openvpn/server.conf
+crl-verify crl.pem
+tun-mtu 1500
+mssfix 1460" >> /etc/openvpn/server.conf
 	# Enable net.ipv4.ip_forward for the system
 	echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/30-openvpn-forward.conf
 	# Enable without waiting for a reboot or service restart
@@ -391,10 +412,12 @@ persist-key
 persist-tun
 remote-cert-tls server
 auth SHA512
-cipher AES-256-CBC
+cipher none
 setenv opt block-outside-dns
 key-direction 1
-verb 3" > /etc/openvpn/client-common.txt
+verb 3
+tun-mtu 1500
+mssfix 1460" > /etc/openvpn/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
 	echo
