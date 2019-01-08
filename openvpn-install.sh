@@ -252,7 +252,7 @@ else
 	rm -f ~/easyrsa.tgz
 	cd /etc/openvpn/easy-rsa/
 	#RANDFILE		= $ENV::EASYRSA_PKI/.rnd
-	sed '3d' openssl-easyrsa.cnf
+	sed -i '3d' openssl-easyrsa.cnf
 	# Create the PKI, set up the CA and the server and client certificates
 	./easyrsa init-pki
 	./easyrsa --batch build-ca nopass
