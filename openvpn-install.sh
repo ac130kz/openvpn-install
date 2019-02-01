@@ -219,24 +219,24 @@ else
 	if [[ "$OS" = 'debian' ]]; then
 		apt update
 		apt upgrade -y
-		apt install apt-src fakeroot curl git software-properties-common autoconf build-essential checkinstall libtool liblzo2-dev libpam0g-dev libssl-dev iptables openssl ca-certificates -y
-		echo "deb-src http://mirrors.digitalocean.com/ubuntu/ cosmic main restricted" >> /etc/apt/sources.list
-		apt update
-		apt-src install openvpn
-		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/02-tunnelblick-openvpn_xorpatch-a.diff > a.patch
-		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/03-tunnelblick-openvpn_xorpatch-b.diff > b.patch
-		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/04-tunnelblick-openvpn_xorpatch-c.diff > c.patch
-		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/05-tunnelblick-openvpn_xorpatch-d.diff > d.patch
-		curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/06-tunnelblick-openvpn_xorpatch-e.diff > e.patch
-		cd ~/openvpn-2.4.6/
-		patch -p1 < ../a.patch
-		patch -p1 < ../b.patch
-		patch -p1 < ../c.patch
-		patch -p1 < ../d.patch
-		patch -p1 < ../e.patch
-		cd ~
-		apt-src build openvpn
-		dpkg -i openvpn*.deb
+		apt install apt-src fakeroot openvpn curl git software-properties-common autoconf build-essential checkinstall libtool liblzo2-dev libpam0g-dev libssl-dev iptables openssl ca-certificates -y
+		#echo "deb-src http://mirrors.digitalocean.com/ubuntu/ cosmic main restricted" >> /etc/apt/sources.list
+		#apt update
+		#apt-src install openvpn
+		#curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/02-tunnelblick-openvpn_xorpatch-a.diff > a.patch
+		#curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/03-tunnelblick-openvpn_xorpatch-b.diff > b.patch
+		#curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/04-tunnelblick-openvpn_xorpatch-c.diff > c.patch
+		#curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/05-tunnelblick-openvpn_xorpatch-d.diff > d.patch
+		#curl https://raw.githubusercontent.com/Tunnelblick/Tunnelblick/master/third_party/sources/openvpn/openvpn-2.4.6/patches/06-tunnelblick-openvpn_xorpatch-e.diff > e.patch
+		#cd ~/openvpn-2.4.6/
+		#patch -p1 < ../a.patch
+		#patch -p1 < ../b.patch
+		#patch -p1 < ../c.patch
+		#patch -p1 < ../d.patch
+		#patch -p1 < ../e.patch
+		#cd ~
+		#apt-src build openvpn
+		#dpkg -i openvpn*.deb
 	else
 		# Else, the distro is CentOS
 		yum install epel-release -y
