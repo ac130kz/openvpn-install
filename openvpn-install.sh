@@ -277,7 +277,6 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 	# Generate server.conf
 	echo "port $PORT
 proto $PROTOCOL
-scramble xormask
 dev tun
 sndbuf 0
 rcvbuf 0
