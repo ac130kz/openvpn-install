@@ -22,6 +22,7 @@ Once it ends, you can run it again to add more users, remove some of them or eve
 ```
 tun-mtu 1500
 mssfix 1460
+txqueuelen 4000
 cipher none
 
 removed: comp-lzo
