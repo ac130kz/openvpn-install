@@ -184,7 +184,7 @@ else
 	fi
 	echo
 	echo "Which protocol do you want for OpenVPN connections?"
-	echo "   1) UDP (recommended)"
+	echo "   1) UDP (is a must for udp2raw)"
 	echo "   2) TCP"
 	read -p "Protocol [1-2]: " -e -i 1 PROTOCOL
 	case $PROTOCOL in
@@ -197,7 +197,7 @@ else
 	esac
 	echo
 	echo "What port do you want OpenVPN listening to?"
-	read -p "Port: " -e -i 443 PORT
+	read -p "Port: " -e -i 7777 PORT
 	echo
 	echo "Which DNS do you want to use with the VPN?"
 	echo "   1) Current system resolvers"
@@ -272,7 +272,8 @@ YdEIqUuyyOP7uWrat2DX9GgdT0Kj3jlN9K5W7edjcrsZCwenyO4KbXCeAvzhzffi
 ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 -----END DH PARAMETERS-----' > /etc/openvpn/dh.pem
 	# Generate server.conf
-	echo "port $PORT
+	echo "local 0.0.0.0
+port $PORT
 proto $PROTOCOL
 dev tun
 sndbuf 0
@@ -404,7 +405,7 @@ dev tun
 proto $PROTOCOL
 sndbuf 0
 rcvbuf 0
-remote $IP $PORT
+remote 127.0.0.1 3333
 resolv-retry infinite
 nobind
 persist-key
