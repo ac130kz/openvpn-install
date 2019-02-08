@@ -282,7 +282,7 @@ ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
-auth SHA512
+auth none
 tls-auth ta.key 0
 topology subnet
 server 10.8.0.0 255.255.255.0
@@ -329,8 +329,8 @@ persist-tun
 status openvpn-status.log
 verb 3
 crl-verify crl.pem
-tun-mtu 1200
-mssfix 1200
+fragment 1300
+mssfix 1300
 txqueuelen 4000" >> /etc/openvpn/server.conf
 	# Enable net.ipv4.ip_forward for the system
 	echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/30-openvpn-forward.conf
@@ -411,13 +411,13 @@ nobind
 persist-key
 persist-tun
 remote-cert-tls server
-auth SHA512
+auth none
 cipher none
 setenv opt block-outside-dns
 key-direction 1
 verb 3
-tun-mtu 1200
-mssfix 1200" > /etc/openvpn/client-common.txt
+fragment 1300
+mssfix 1300" > /etc/openvpn/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
 	echo
