@@ -329,8 +329,8 @@ persist-tun
 status openvpn-status.log
 verb 3
 crl-verify crl.pem
-tun-mtu 1500
-mssfix 1460
+tun-mtu 1200
+mssfix 1200
 txqueuelen 4000" >> /etc/openvpn/server.conf
 	# Enable net.ipv4.ip_forward for the system
 	echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/30-openvpn-forward.conf
@@ -416,9 +416,8 @@ cipher none
 setenv opt block-outside-dns
 key-direction 1
 verb 3
-tun-mtu 1500
-mssfix 1460
-txqueuelen 4000" > /etc/openvpn/client-common.txt
+tun-mtu 1200
+mssfix 1200" > /etc/openvpn/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
 	echo
