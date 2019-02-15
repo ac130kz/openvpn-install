@@ -334,9 +334,19 @@ mssfix 1300
 tun-mtu 1360
 txqueuelen 4000" >> /etc/openvpn/server.conf
 	# Enable net.ipv4.ip_forward for the system
-	echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/30-openvpn-forward.conf
+	echo 'net.ipv4.ip_forward=1
+net.core.rmem_max=26214400
+net.core.rmem_default=26214400
+net.core.wmem_max=26214400
+net.core.wmem_default=26214400
+net.core.netdev_max_backlog=2048' > /etc/sysctl.d/30-openvpn-forward.conf
 	# Enable without waiting for a reboot or service restart
 	echo 1 > /proc/sys/net/ipv4/ip_forward
+	sysctl -w net.core.rmem_max=26214400
+	sysctl -w net.core.rmem_default=26214400
+	sysctl -w net.core.wmem_max=26214400
+	sysctl -w net.core.wmem_default=26214400
+	sysctl -w net.core.netdev_max_backlog=2048
 	if pgrep firewalld; then
 		# Using both permanent and not permanent rules to avoid a firewalld
 		# reload.
