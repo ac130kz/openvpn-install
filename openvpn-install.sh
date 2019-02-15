@@ -331,7 +331,7 @@ verb 3
 crl-verify crl.pem
 fragment 1350
 mssfix 1350
-tun-mtu 1500" >> /etc/openvpn/server.conf # txqueuelen 4000
+tun-mtu 1350" >> /etc/openvpn/server.conf # txqueuelen 4000
 	# Enable net.ipv4.ip_forward for the system
 	echo 'net.ipv4.ip_forward=1
 net.core.rmem_max=26214400
