@@ -216,7 +216,7 @@ else
 	if [[ "$OS" = 'debian' ]]; then
 		apt update
 		apt upgrade -y
-		apt install apt-src fakeroot openvpn curl git software-properties-common autoconf build-essential checkinstall libtool liblzo2-dev libpam0g-dev libssl-dev iptables openssl ca-certificates -y
+		apt install openvpn curl software-properties-common autoconf checkinstall libtool liblzo2-dev libpam0g-dev libssl-dev iptables openssl ca-certificates -y
 		#echo "deb-src http://mirrors.digitalocean.com/ubuntu/ cosmic main restricted" >> /etc/apt/sources.list
 		#apt update
 		#apt-src install openvpn
