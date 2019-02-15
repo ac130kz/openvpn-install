@@ -276,8 +276,8 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 port $PORT
 proto $PROTOCOL
 dev tun
-sndbuf 0
-rcvbuf 0
+sndbuf 2000000
+rcvbuf 2000000
 ca ca.crt
 cert server.crt
 key server.key
@@ -329,9 +329,9 @@ persist-tun
 status openvpn-status.log
 verb 3
 crl-verify crl.pem
-fragment 1360
+fragment 1350
 mssfix 1300
-tun-mtu 1360
+tun-mtu 1500
 txqueuelen 4000" >> /etc/openvpn/server.conf
 	# Enable net.ipv4.ip_forward for the system
 	echo 'net.ipv4.ip_forward=1
@@ -414,8 +414,8 @@ exit 0' > $RCLOCAL
 	echo "client
 dev tun
 proto $PROTOCOL
-sndbuf 0
-rcvbuf 0
+sndbuf 2000000
+rcvbuf 2000000
 remote 127.0.0.1 3333
 resolv-retry infinite
 nobind
@@ -429,7 +429,7 @@ key-direction 1
 verb 3
 fragment 1360
 mssfix 1300
-tun-mtu 1360" > /etc/openvpn/client-common.txt
+tun-mtu 1500" > /etc/openvpn/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
 	echo
