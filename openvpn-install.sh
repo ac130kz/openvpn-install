@@ -428,7 +428,7 @@ key-direction 1
 verb 3
 fragment 1350
 mssfix 1350
-tun-mtu 1500" > /etc/openvpn/client-common.txt
+tun-mtu 1350" > /etc/openvpn/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
 	echo
