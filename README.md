@@ -20,8 +20,9 @@ Once it ends, you can run it again to add more users, remove some of them or eve
 
 * Other stuff suggested [here](https://blog.hambier.lu/post/solving-openvpn-mtu-issues) and from stackoverflow
 ```
-tun-mtu 1500
-mssfix 1460
+fragment 1360
+mssfix 1300
+tun-mtu 1360
 txqueuelen 4000
 cipher none
 
