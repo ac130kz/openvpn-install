@@ -420,10 +420,8 @@ resolv-retry infinite
 nobind
 persist-key
 persist-tun
-remote-cert-tls server
 auth SHA512
 cipher none
-setenv opt block-outside-dns
 key-direction 1
 verb 3
 mssfix 1200
