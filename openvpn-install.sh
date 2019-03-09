@@ -249,7 +249,7 @@ else
 	rm -f ~/easyrsa.tgz
 	cd /etc/openvpn/easy-rsa/
 	#RANDFILE		= $ENV::EASYRSA_PKI/.rnd
-	sed -i '3d' openssl-easyrsa.cnf
+	#sed -i '3d' openssl-easyrsa.cnf
 	# Create the PKI, set up the CA and the server and client certificates
 	./easyrsa init-pki
 	./easyrsa --batch build-ca nopass
@@ -276,8 +276,8 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 port $PORT
 proto $PROTOCOL
 dev tun
-sndbuf 2000000
-rcvbuf 2000000
+sndbuf 0
+rcvbuf 0
 ca ca.crt
 cert server.crt
 key server.key
@@ -286,7 +286,7 @@ auth SHA512
 tls-auth ta.key 0
 topology subnet
 server 10.8.0.0 255.255.255.0
-ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
+ifconfig 10.222.2.1 10.222.2.6" > /etc/openvpn/server.conf
 	echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server.conf
 	# DNS
 	case $DNS in
@@ -329,10 +329,9 @@ persist-tun
 status openvpn-status.log
 verb 3
 crl-verify crl.pem
-replay-window 2000
 txqueuelen 4000
 mssfix 1200
-tun-mtu 1200" >> /etc/openvpn/server.conf # txqueuelen 4000
+fragment 1200" >> /etc/openvpn/server.conf
 	# Enable net.ipv4.ip_forward for the system
 	echo 'net.ipv4.ip_forward=1
 net.core.rmem_max=26214400
@@ -414,8 +413,8 @@ exit 0' > $RCLOCAL
 	echo "client
 dev tun
 proto $PROTOCOL
-sndbuf 2000000
-rcvbuf 2000000
+sndbuf 0
+rcvbuf 0
 remote 127.0.0.1 3333
 resolv-retry infinite
 nobind
@@ -427,9 +426,8 @@ cipher none
 setenv opt block-outside-dns
 key-direction 1
 verb 3
-replay-window 2000
 mssfix 1200
-tun-mtu 1200" > /etc/openvpn/client-common.txt
+fragment 1200" > /etc/openvpn/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
 	echo
