@@ -8,6 +8,19 @@ Run the script and follow the assistant:
 
 `wget https://raw.githubusercontent.com/ac130kz/openvpn-install/udp2raw/openvpn-install.sh -O openvpn-install.sh && bash openvpn-install.sh`
 
+```
+wget https://github.com/wangyu-/udp2raw-tunnel/releases/download/20181113.0/udp2raw_binaries.tar.gz && tar xvf udp2raw_binaries.tar.gz
+```
+
+```
+./udp2raw_amd64 -s -l 0.0.0.0:443 -r 127.0.0.1:7777 -a -k "password" --raw-mode faketcp --cipher-mode none --sock-buf 10240 --force-sock-buf
+```
+
+On client (easy-faketcp/faketcp):
+```
+udp2raw_mp.exe -c -l 0.0.0.0:3333 -r $remote_ip:443 -k "password" --raw-mode easy-faketcp --cipher-mode none --sock-buf 10240
+```
+
 Once it ends, you can run it again to add more users, remove some of them or even completely uninstall OpenVPN.
 
 ### Author
