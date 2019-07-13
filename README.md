@@ -6,26 +6,9 @@ This script will let you setup your own VPN server in no more than a minute, eve
 ### Installation
 Run the script and follow the assistant:
 
-`wget https://raw.githubusercontent.com/ac130kz/openvpn-install/master/openvpn-install.sh -O openvpn-install.sh && bash openvpn-install.sh`
+`wget https://raw.githubusercontent.com/ac130kz/openvpn-install/test/openvpn-install.sh -O openvpn-install.sh && bash openvpn-install.sh`
 
 Once it ends, you can run it again to add more users, remove some of them or even completely uninstall OpenVPN.
-
-### Author
-
- [Github](https://github.com/Nyr/openvpn-install)
-
-### Patches to fit my needs (performance + less lag over UDP)
-
-* Google DNS by default
-
-* Other stuff suggested [here](https://blog.hambier.lu/post/solving-openvpn-mtu-issues) and from stackoverflow
-```
-tun-mtu 1500
-mssfix 1460
-cipher none
-
-removed: comp-lzo
-```
 
 ### Additional kernel configs (add to /etc/sysctl.conf, then sudo systemctl -p /etc/sysctl.conf)
 
