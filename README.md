@@ -6,7 +6,7 @@ This script will let you setup your own VPN server in no more than a minute, eve
 ### Installation
 Run the script and follow the assistant:
 
-`wget https://raw.githubusercontent.com/ac130kz/openvpn-install/udp2raw/openvpn-install.sh -O openvpn-install.sh && bash openvpn-install.sh`
+`wget https://raw.githubusercontent.com/ac130kz/openvpn-install/udp2raw_updated/openvpn-install.sh -O openvpn-install.sh && bash openvpn-install.sh`
 
 ```
 wget https://github.com/wangyu-/udp2raw-tunnel/releases/download/20181113.0/udp2raw_binaries.tar.gz && tar xvf udp2raw_binaries.tar.gz
